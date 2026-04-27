@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template_string
 from ai_engine import predict_disease
 from knowledge_base import symptoms_list
+import os
 
 app = Flask(__name__)
 
@@ -30,4 +31,5 @@ def home():
             result = predict_disease(selected)
     return render_template_string(HTML, symptoms=symptoms_list, result=result)
 
-app.run()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
